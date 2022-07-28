@@ -92,23 +92,22 @@ class Tool:
       
       # 3 проверяем столбцы
       if correct:
-        print('ушел в проверку столбцов')
-        if self.df.columns.equals(globals()[self.name].columns):
+        if not self.df.columns.equals(globals()[self.name].columns):
+          
           # если столбцов в проверяемой больше
           if len(self.df.columns) < len(globals()[self.name].columns):
-            print('первый if')
             # список столбцов который есть в проверяемом массиве, но нет в эталонном
-            list_of_columns = list(set(self.df.columns) ^ globals()[self.name].columns)
+            list_of_columns = list(set(self.df.columns) ^ set(globals()[self.name].columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы имеете больше столбцов чем необходимо, неизвестные столбцы:', list_of_columns))
+          
           # если столбцов меньше
           elif len(self.df.columns) > len(globals()[self.name].columns):
-            print('второй if')
-            list_of_columns = list(set(self.df.columns) ^ globals()[self.name].columns)
+            list_of_columns = list(set(self.df.columns) ^ set(globals()[self.name].columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы имеете меньше столбцов чем необходимо, недостющие столбцы:', list_of_columns))
+          
           # если одинаковое количество столбцов, но различаются названия
           else:
-            print('третий if')
-            print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'названия столбцов различаются, пожалуйста, проверьте названия столбцов'))
+            print('\033[1;31m{} \033[0m{}'.format('Промах :', 'названия столбцов различаются, пожалуйста, проверьте названия столбцов'))
           correct = False
       
       # 4 проверяем индексы

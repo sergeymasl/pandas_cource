@@ -78,6 +78,7 @@ class Tool:
       # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
       if correct:
         print('\033[1;32m{}'.format('Отлично, все верно'))
+        print()
       
     # dataframe
     elif self.what == 'df':

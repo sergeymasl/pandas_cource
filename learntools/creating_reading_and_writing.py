@@ -18,8 +18,8 @@ class Tool:
     if what == 'series':
       self.series = object 
     
-    if what == 'df':
-      self.df = df
+    if what == 'df' or what == 'file':
+      self.df = object
 
 
   def check(self):
@@ -125,3 +125,79 @@ class Tool:
       # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
       if correct:
         print('\033[1;32m{}'.format('Отлично, все верно'))
+    
+    # file
+    if self.what == 'file':
+
+      from glob import glob
+      import pandas as pd
+      
+      correct = True
+
+      # 1 проверяем наличие файла
+      if not self.name in glob('*'):
+        print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}'.format('Промах :', 'файл c именем', self.name, 'не найден'))
+        correct = False
+
+      if correct:
+        # считываем сам датафрейм для проверки
+        check_df = pd.read_csv(self.name, index_col = 0)
+        print()
+
+      # 2 проверяем столбцы
+      if correct:
+        if not self.df.columns.equals(check_df.columns):
+          
+          # если столбцов в проверяемой больше
+          if len(self.df.columns) < len(check_df.columns):
+            # список столбцов который есть в проверяемом массиве, но нет в эталонном
+            list_of_columns = list(set(self.df.columns) ^ set(check_df.columns))
+            print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'в датафрейме загруженном из', self.name, 'столбцов больше, чем необходимо, неизвестные столбцы:', list_of_columns))
+          
+          # если столбцов меньше
+          elif len(self.df.columns) > len(check_df.columns):
+            list_of_columns = list(set(self.df.columns) ^ set(check_df.columns))
+            print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'в датафрейме загруженном из', self.name, 'столбцов меньше, чем необходимо, недостающие столбцы:', list_of_columns))
+          
+          # если одинаковое количество столбцов, но различаются названия
+          else:
+            print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}'.format('Промах :', 'в датафрейме загруженном из', self.name, 'названия столбцов различаются, пожалуйста, проверьте названия столбцов'))
+          correct = False
+      
+      # 3 проверяем сами значения в датафрейме
+      if correct:
+        if not self.df.equals(check_df):
+          print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, значения в вашем DataFrame, они отличаются от требуемых'))
+          correct = False
+
+      # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
+      if correct:
+        print('\033[1;32m{}'.format('Отлично, все верно'))
+
+        
+        
+import pandas as pd
+#1
+df1 = pd.DataFrame({'Apples' : [30], 'Bananas' : [21]})
+q1 = Tool(name = 'fruits', what = 'df', object = df1)
+del df1
+
+#2
+df2 = pd.DataFrame({'Apples' : [35, 41], 'Bananas' : [21, 34]}, index = ['2017 Sales', '2018 Sales'])
+q2 = Tool(name = 'fruit_sales', what = 'df', object = df2)
+del df2
+
+#3
+s3 = pd.Series(['4 cups', '1 cup', '2 large', '1 can'], index = ['Flour', 'Milk', 'Eggs', 'Spam'], name = 'Dinner')
+q3 = Tool(name = 'ingredients', what = 'series', object = s3)
+del s3
+
+#4
+df4 = pd.read_csv('https://drive.google.com/uc?export=download&id=1a1R6dr1Y1oq7f-1pvEI3x3jUdyL89qBO', index_col = 0)
+q4 = Tool(name = 'fruit_sales', what = 'df', object = df4)
+del df4
+
+#5
+df5 = pd.DataFrame({'Cows': [12, 20], 'Goats': [22, 19]}, index=['Year 1', 'Year 2'])
+q5 = Tool(name = 'cows_and_goats.csv', what = 'file', object = df5)
+del df4

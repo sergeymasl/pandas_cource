@@ -79,10 +79,10 @@ class Tool:
       correct = True
 
       # 1 проверяем есть ли переменная
-      if not self.name in globals():
-        # сообщаем об ошибке
-        print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
-        correct = False
+      #if not self.name in globals():
+      #  # сообщаем об ошибке
+      #  print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
+      #  correct = False
       
       # 2 проверяем тип переменной
       if correct:

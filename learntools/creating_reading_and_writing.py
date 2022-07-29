@@ -22,7 +22,7 @@ class Tool:
       self.df = object
 
 
-  def check(self, check_obj):
+  def check(self, check_obj = None):
     '''
     Проверка задания
     '''

@@ -35,12 +35,14 @@ class Tool:
       #if not self.name in globals():
       #  # сообщаем об ошибке
       #  print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
+      #  print()
       #  correct = False
       
       # 2 проверяем тип переменной
       if correct:
         if not isinstance(check_obj, type(self.series)):
           print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.series)))
+          print()
           correct = False
       
       # 3 проверяем название series
@@ -51,22 +53,26 @@ class Tool:
           if check_obj.name:
             if check_obj.name != self.series.name:
               print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}\033[48;5;252m{}'.format('Промах :', 'вы не верно задали name для Series, ваш name -', check_obj.name, 'необходимое name - ', self.series.name))
+              print()
               correct = False
           # если у проверяемой серии нет имени
           else:
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы не задали name для Series, вам необходимо задать name:', self.series.name))
+            print()
             correct = False
       
       # 4 проверим индексы
       if correct:
         if not self.series.index.equals(check_obj.index):
-          print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, индексы в вашей Series, они отличаются от требуемых'))          
+          print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, индексы в вашей Series, они отличаются от требуемых'))
+          print()
           correct = False
       
       # 5 проверяем на соответсвие сами Series
       if correct:
         if not self.series.equals(check_obj):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, значения в вашей Series, они отличаются от требуемых'))
+          print()
           correct = False
       
       # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
@@ -82,12 +88,14 @@ class Tool:
       #if not self.name in globals():
       #  # сообщаем об ошибке
       #  print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
+      #  print()
       #  correct = False
       
       # 2 проверяем тип переменной
       if correct:
         if not isinstance(check_obj, type(self.df)):
           print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.df)))
+          print()
           correct = False
       
       # 3 проверяем столбцы
@@ -99,32 +107,38 @@ class Tool:
             # список столбцов который есть в проверяемом массиве, но нет в эталонном
             list_of_columns = list(set(self.df.columns) ^ set(check_obj.columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы имеете больше столбцов чем необходимо, неизвестные столбцы:', list_of_columns))
+            print()
           
           # если столбцов меньше
           elif len(self.df.columns) > len(check_obj.columns):
             list_of_columns = list(set(self.df.columns) ^ set(check_obj.columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы имеете меньше столбцов чем необходимо, недостющие столбцы:', list_of_columns))
+            print()
           
           # если одинаковое количество столбцов, но различаются названия
           else:
             print('\033[1;31m{} \033[0m{}'.format('Промах :', 'названия столбцов или их порядок различаются, пожалуйста, проверьте названия или порядок столбцов'))
+            print()
           correct = False
       
       # 4 проверяем индексы
       if correct:
         if not self.df.index.equals(check_obj.index):
-          print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, индексы в вашем DataFrame, они отличаются от требуемых'))          
+          print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, индексы в вашем DataFrame, они отличаются от требуемых'))
+          print()
           correct = False
       
       # 5 проверяем сами значения в датафрейме
       if correct:
         if not self.df.equals(check_obj):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, значения в вашем DataFrame, они отличаются от требуемых'))
+          print()
           correct = False
       
       # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
       if correct:
         print('\033[1;32m{}'.format('Отлично, все верно'))
+        print()
     
     # file
     if self.what == 'file':
@@ -137,12 +151,12 @@ class Tool:
       # 1 проверяем наличие файла
       if not self.name in glob('*'):
         print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}'.format('Промах :', 'файл c именем', self.name, 'не найден'))
+        print()
         correct = False
 
       if correct:
         # считываем сам датафрейм для проверки
         check_df = pd.read_csv(self.name, index_col = 0)
-        print()
 
       # 2 проверяем столбцы
       if correct:
@@ -153,26 +167,31 @@ class Tool:
             # список столбцов который есть в проверяемом массиве, но нет в эталонном
             list_of_columns = list(set(self.df.columns) ^ set(check_df.columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'в датафрейме загруженном из', self.name, 'столбцов больше, чем необходимо, неизвестные столбцы:', list_of_columns))
+            print()
           
           # если столбцов меньше
           elif len(self.df.columns) > len(check_df.columns):
             list_of_columns = list(set(self.df.columns) ^ set(check_df.columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'в датафрейме загруженном из', self.name, 'столбцов меньше, чем необходимо, недостающие столбцы:', list_of_columns))
+            print()
           
           # если одинаковое количество столбцов, но различаются названия
           else:
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}'.format('Промах :', 'в датафрейме загруженном из', self.name, 'названия столбцов или их порядок различаются, пожалуйста, проверьте названия или порядок столбцов'))
+            print()
           correct = False
       
       # 3 проверяем сами значения в датафрейме
       if correct:
         if not self.df.equals(check_df):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, значения в вашем DataFrame, они отличаются от требуемых'))
+          print()
           correct = False
 
       # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
       if correct:
         print('\033[1;32m{}'.format('Отлично, все верно'))
+        print()
 
         
         

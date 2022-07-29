@@ -22,7 +22,7 @@ class Tool:
       self.df = object
 
 
-  def check(self):
+  def check(self, check_obj):
     '''
     Проверка задания
     '''
@@ -32,15 +32,15 @@ class Tool:
       correct = True
 
       # 1 проверяем есть ли переменная
-      if not self.name in globals():
-        # сообщаем об ошибке
-        print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
-        correct = False
+      #if not self.name in globals():
+      #  # сообщаем об ошибке
+      #  print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
+      #  correct = False
       
       # 2 проверяем тип переменной
       if correct:
-        if not isinstance(globals()[self.name], type(self.series)):
-          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(globals()[self.name]), 'а должна быть', type(self.series)))
+        if not isinstance(check_obj, type(self.series)):
+          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.series)))
           correct = False
       
       # 3 проверяем название series
@@ -48,9 +48,9 @@ class Tool:
         # сначала смотрим есть ли вообще название
         if self.series.name:
           # проверяем соответсвие имени
-          if globals()[self.name].name:
-            if globals()[self.name].name != self.series.name:
-              print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}\033[48;5;252m{}'.format('Промах :', 'вы не верно задали name для Series, ваш name -', globals()[self.name].name, 'необходимое name - ', self.series.name))
+          if check_obj.name:
+            if check_obj.name != self.series.name:
+              print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {}\033[48;5;252m{}'.format('Промах :', 'вы не верно задали name для Series, ваш name -', check_obj.name, 'необходимое name - ', self.series.name))
               correct = False
           # если у проверяемой серии нет имени
           else:
@@ -59,13 +59,13 @@ class Tool:
       
       # 4 проверим индексы
       if correct:
-        if not self.series.index.equals(globals()[self.name].index):
+        if not self.series.index.equals(check_obj.index):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, индексы в вашей Series, они отличаются от требуемых'))          
           correct = False
       
       # 5 проверяем на соответсвие сами Series
       if correct:
-        if not self.series.equals(globals()[self.name]):
+        if not self.series.equals(check_obj):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, значения в вашей Series, они отличаются от требуемых'))
           correct = False
       
@@ -80,31 +80,29 @@ class Tool:
 
       # 1 проверяем есть ли переменная
       if not self.name in globals():
-        print('Ушел в проверку переменной')
-        print(globals())
         # сообщаем об ошибке
         print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вам необходимо создать переменную', self.name))
         correct = False
       
       # 2 проверяем тип переменной
       if correct:
-        if not isinstance(globals()[self.name], type(self.df)):
-          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(globals()[self.name]), 'а должна быть', type(self.df)))
+        if not isinstance(check_obj, type(self.df)):
+          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.df)))
           correct = False
       
       # 3 проверяем столбцы
       if correct:
-        if not self.df.columns.equals(globals()[self.name].columns):
+        if not self.df.columns.equals(check_obj.columns):
           
           # если столбцов в проверяемой больше
-          if len(self.df.columns) < len(globals()[self.name].columns):
+          if len(self.df.columns) < len(check_obj.columns):
             # список столбцов который есть в проверяемом массиве, но нет в эталонном
-            list_of_columns = list(set(self.df.columns) ^ set(globals()[self.name].columns))
+            list_of_columns = list(set(self.df.columns) ^ set(check_obj.columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы имеете больше столбцов чем необходимо, неизвестные столбцы:', list_of_columns))
           
           # если столбцов меньше
-          elif len(self.df.columns) > len(globals()[self.name].columns):
-            list_of_columns = list(set(self.df.columns) ^ set(globals()[self.name].columns))
+          elif len(self.df.columns) > len(check_obj.columns):
+            list_of_columns = list(set(self.df.columns) ^ set(check_obj.columns))
             print('\033[1;31m{} \033[0m{} \033[48;5;252m{}'.format('Промах :', 'вы имеете меньше столбцов чем необходимо, недостющие столбцы:', list_of_columns))
           
           # если одинаковое количество столбцов, но различаются названия
@@ -114,13 +112,13 @@ class Tool:
       
       # 4 проверяем индексы
       if correct:
-        if not self.df.index.equals(globals()[self.name].index):
+        if not self.df.index.equals(check_obj.index):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, индексы в вашем DataFrame, они отличаются от требуемых'))          
           correct = False
       
       # 5 проверяем сами значения в датафрейме
       if correct:
-        if not self.df.equals(globals()[self.name]):
+        if not self.df.equals(check_obj):
           print('\033[1;31m{} \033[0m{}'.format('Промах :', 'проверьте, пожалуйста, значения в вашем DataFrame, они отличаются от требуемых'))
           correct = False
       

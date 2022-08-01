@@ -8,9 +8,8 @@ class Tool:
     При инициализация передаем датафрейм или серию, в зависимости от проверяемого объекта
     
     name - имя переменной которую проверяем
-    df - датафрейм если проверяем датафрейм
-    object - датафрейм или серия которая соответствует правильному ответу
-    what - что проверяем ['df', 'series', 'file']
+    object - переменная которая соответсвует правильному ответу
+    what - что проверяем ['df', 'series', 'file', 'single_value']
     '''
     self.name = name
     self.what = what
@@ -18,8 +17,11 @@ class Tool:
     if what == 'series':
       self.series = object 
     
-    if what == 'df' or what == 'file':
+    if what in ['df', 'file']:
       self.df = object
+    
+    if what in ['single_value']:
+      self.var = object
 
 
   def check(self, check_obj = None):
@@ -193,7 +195,30 @@ class Tool:
       if correct:
         print('\033[1;32m{}'.format('Отлично, все верно'))
         print()
+    
+    # single_value
+    if self.what == 'single_value':
 
+      correct = True
+
+      # 1 проверяем тип переменной
+      if correct:
+        if not isinstance(check_obj, type(self.var)):
+          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.series)))
+          print()
+          correct = False
+      
+      # 2 проверяем сами значения
+      if correct:
+        if self.var != check_obj:
+          print('\033[1;31m{} \033[0m{}\033[48;5;252m{}\033[0m {}'.format('Промах :', 'проверьте, пожалуйста, значения в переменной ', self.name, ', они отличаются от требуемых'))
+          print()
+          correct = False
+      
+      # и НАКОНЕЦ если все проверки пройдены говорим о том что все отлично
+      if correct:
+        print('\033[1;32m{}'.format('Отлично, все верно'))
+        print()
         
         
 import pandas as pd

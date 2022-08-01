@@ -204,7 +204,7 @@ class Tool:
       # 1 проверяем тип переменной
       if correct:
         if not isinstance(check_obj, type(self.var)):
-          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.series)))
+          print('\033[1;31m{} \033[0m{} \033[48;5;252m{}\033[0m {} \033[48;5;252m{}'.format('Промах :', 'ваша переменная имеет формат', type(check_obj), 'а должна быть', type(self.var)))
           print()
           correct = False
       

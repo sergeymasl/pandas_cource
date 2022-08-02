@@ -20,7 +20,7 @@ del df3
 
 #4
 df4 = reviews.loc[:9, 'description']
-q4 = Tool(name = 'first_descriptions', what = 'df', object = df4)
+q4 = Tool(name = 'first_descriptions', what = 'series', object = df4)
 del df4
 
 #5

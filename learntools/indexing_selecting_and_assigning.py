@@ -44,6 +44,6 @@ q8 = Tool(name = 'italian_wines', what = 'df', object = df8)
 del df8
 
 #9
-df9 = reviews.loc[(reviews['points'] >= 95) & reviews['country'].isin(['Australia', 'New Zealand']) >= 95]
+df9 = reviews.loc[(reviews['points'] >= 95) & (reviews['country'].isin(['Australia', 'New Zealand']))]
 q9 = Tool(name = 'top_oceania_wines', what = 'df', object = df9)
 del df9

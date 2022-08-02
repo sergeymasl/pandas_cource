@@ -10,7 +10,7 @@ del df1
 
 #2
 df2 = reviews.loc[0, 'description']
-q2 = Tool(name = 'first_description', what = 'df', object = df2)
+q2 = Tool(name = 'first_description', what = 'single_value', object = df2)
 del df2
 
 #3

@@ -5,7 +5,7 @@ reviews = pd.read_csv('https://drive.google.com/uc?export=download&id=1z-1idT4mG
 
 #1
 df1 = reviews['description']
-q1 = Tool(name = 'desc', what = 'df', object = df1)
+q1 = Tool(name = 'desc', what = 'series', object = df1)
 del df1
 
 #2

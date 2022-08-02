@@ -15,7 +15,7 @@ del df2
 
 #3
 df3 = reviews.iloc[0]
-q3 = Tool(name = 'first_row', what = 'df', object = df3)
+q3 = Tool(name = 'first_row', what = 'series', object = df3)
 del df3
 
 #4

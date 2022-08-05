@@ -54,10 +54,41 @@ n_trop = reviews.description.map(lambda desc: "tropical" in desc).sum()
 n_fruity = reviews.description.map(lambda desc: "fruity" in desc).sum()
 var = pd.Series([n_trop, n_fruity], index=['tropical', 'fruity'])
 what = 'series'
-hint = 'Используйте метод `gf`map`n` для проверки нахождения слова `gf`tropical`n` затем сложите все `gf`True`n`, повторите это для `gf`"fruity"`n`. Затем соедините эти выражения в `gf`Series' 
+hint = 'Используйте метод `gf`map`n` для проверки нахождения слова `gf`tropical`n` затем сложите все `gf`True`n`, повторите это для `gf`fruity`n`. Затем соедините эти выражения в `gf`Series' 
 solution = '''
 n_trop = reviews.description.map(lambda desc: "tropical" in desc).sum()
 n_fruity = reviews.description.map(lambda desc: "fruity" in desc).sum()
 descriptor_counts = pd.Series([n_trop, n_fruity], index=['tropical', 'fruity'])
+'''
+q6 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
+
+
+#7
+name_var = 'descriptor_counts'
+
+def stars(row):
+    if row['country'] == 'Canada':
+        return 3
+    elif row['points'] >= 95:
+        return 3
+    elif row['points'] >= 85:
+        return 2
+    else:
+        return 1
+var = reviews.apply(stars, axis='columns')
+what = 'series'
+hint = 'Напишите собственную функцию затрагивающую два столбца и возвращяющую количество звезд. Затем используйте `gf`DataFrame.apply`n` для обработки каждой строки' 
+solution = '''
+def stars(row):
+    if row['country'] == 'Canada':
+        return 3
+    elif row['points'] >= 95:
+        return 3
+    elif row['points'] >= 85:
+        return 2
+    else:
+        return 1
+
+star_ratings = reviews.apply(stars, axis='columns')
 '''
 q6 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)

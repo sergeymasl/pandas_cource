@@ -1,25 +1,3 @@
-def color_text(text):
-  '''
-  Функция для легкого изменения цвета и заливки текста.
-
-  Параметры в text:
-  `n` - с этого момента начинается нормальный текст
-  `r` - с этого момента начинается красный текст
-  `g` - с этого момента начинается зеленый цвет
-  `b` - с этого момента начинается голубой цвет
-  `gf` - c этого момента начинается серая заливка
-
-  Ссылка на параметры изменения цвета: https://habr.com/ru/company/macloud/blog/558316/
-  '''
-  var = text
-  var = var.replace('`n`' , '\033[0m')
-  var = var.replace('`r`' , '\033[1;31m')
-  var = var.replace('`g`' , '\033[1;32m')
-  var = var.replace('`b`' , '\033[1;34m')
-  var = var.replace('`gf`' , '\033[48;5;252m')
-  return var
-
-
 class Tool:
   '''
   Касс для проверки ответов на упражнения
@@ -43,8 +21,8 @@ class Tool:
     # присвоение атрибутов
     self.name = name
     self.what = what
-    self.hint = hint
-    self.solution = solution
+    self._hint = hint
+    self._solution = solution
     
     if what == 'series':
       self.series = object 
@@ -57,7 +35,27 @@ class Tool:
      
     # обявляем счетчик попыток проверок
     self.counter_check = 0
+  
+  def color_text(text):
+  '''
+  Функция для легкого изменения цвета и заливки текста.
 
+  Параметры в text:
+  `n` - с этого момента начинается нормальный текст
+  `r` - с этого момента начинается красный текст
+  `g` - с этого момента начинается зеленый цвет
+  `b` - с этого момента начинается голубой цвет
+  `gf` - c этого момента начинается серая заливка
+
+  Ссылка на параметры изменения цвета: https://habr.com/ru/company/macloud/blog/558316/
+  '''
+  var = text
+  var = var.replace('`n`' , '\033[0m')
+  var = var.replace('`r`' , '\033[1;31m')
+  var = var.replace('`g`' , '\033[1;32m')
+  var = var.replace('`b`' , '\033[1;34m')
+  var = var.replace('`gf`' , '\033[48;5;252m')
+  return var
 
   def check(self, check_obj = None):
     '''
@@ -283,23 +281,23 @@ class Tool:
   def hint(self):
     '''Подсказка, которая откроется через 3 попытки проверки ответа'''
     # проверяем предусмотрена ли подсказка
-    if self.hint:
+    if self._hint:
       # смотрим на счетчик, печатаем подсказку только после 3 попытки
       if self.counter_check < 3:
         print(color_text('`b`Подсказка:`n` подсказка будет доступна после 3 попыток проверки ответа (пробуйте решить самостоятельно)'))
       else:
-        print(color_text(f'`b`Подсказка:`n` {self.hint}'))
+        print(color_text(f'`b`Подсказка:`n` {self._hint}'))
     else:
       print(color_text('`b`Подсказка:`n` автор не предусмотрел подсказки для этого упражнения'))
   
   def solution(self):
     '''Решение, которое откроется через 5 попыток проверки ответа'''
-    if self.hint:
+    if self._solution:
       # смотрим на счетчик, печатаем подсказку только после 5 попытки
       if self.counter_check < 5:
         print(color_text('`b`Решение:`n` решение будет доступно после 5 попыток проверки ответа (пробуйте решить самостоятельно)'))
       else:
         print(color_text(f'''`b`Решение:`n` 
-        {self.hint}'''))
+        {self._solution}'''))
     else:
       print(color_text('`b`Решение: `n` автор не предусмотрел решение для этого упражнения'))

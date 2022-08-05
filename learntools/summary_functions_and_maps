@@ -27,20 +27,37 @@ hint = None
 solution = None
 q3 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
 
+#4
+name_var = 'centered_price'
+price_mean = reviews['price'].mean()
+var = reviews['price'].map(lambda x: x - price_mean)
+what = 'series'
+hint = None
+solution = None
+q4 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
 
+#5
+name_var = 'centered_price'
+bargain_idx = (reviews.points / reviews.price).idxmax()
+var = reviews.loc[bargain_idx, 'title']
+what = 'single_value'
+hint = None
+solution = '''
+bargain_idx = (reviews.points / reviews.price).idxmax()
+bargain_wine = reviews.loc[bargain_idx, 'title']
+'''
+q5 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-del df
+#6
+name_var = 'descriptor_counts'
+n_trop = reviews.description.map(lambda desc: "tropical" in desc).sum()
+n_fruity = reviews.description.map(lambda desc: "fruity" in desc).sum()
+var = pd.Series([n_trop, n_fruity], index=['tropical', 'fruity'])
+what = 'series'
+hint = 'Используйте метод `gf`map`n` для проверки нахождения слова `gf`tropical`n` затем сложите все `gf`True`n`, повторите это для `gf`"fruity"`n`. Затем соедините эти выражения в `gf`Series' 
+solution = '''
+n_trop = reviews.description.map(lambda desc: "tropical" in desc).sum()
+n_fruity = reviews.description.map(lambda desc: "fruity" in desc).sum()
+descriptor_counts = pd.Series([n_trop, n_fruity], index=['tropical', 'fruity'])
+'''
+q6 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)

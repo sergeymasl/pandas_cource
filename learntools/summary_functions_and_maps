@@ -1,0 +1,5 @@
+# imports
+from core import Tool
+import pandas as pd
+reviews = pd.read_csv('https://drive.google.com/uc?export=download&id=1z-1idT4mGbOvHgmEPzneqV54EJ1-w7tk', index_col = 0)
+

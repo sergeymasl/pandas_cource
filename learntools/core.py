@@ -303,5 +303,3 @@ class Tool:
         {self.hint}'''))
     else:
       print(color_text('`b`Решение: `n` автор не предусмотрел решение для этого упражнения'))
-        
-    pass

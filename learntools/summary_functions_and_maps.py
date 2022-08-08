@@ -14,7 +14,7 @@ q1 = Tool(name = name_var, what = what, object = var, hint = hint, solution = so
 #2
 name_var = 'countries'
 var = reviews['country'].unique()
-what = 'single_value'
+what = 'array'
 hint = None
 solution = None
 q2 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)

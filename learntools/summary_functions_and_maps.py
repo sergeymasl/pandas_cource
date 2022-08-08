@@ -91,4 +91,4 @@ def stars(row):
 
 star_ratings = reviews.apply(stars, axis='columns')
 '''
-q6 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
+q7 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)

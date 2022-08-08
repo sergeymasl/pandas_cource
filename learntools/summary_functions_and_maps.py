@@ -12,12 +12,12 @@ solution = None
 q1 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
 
 #2
-#name_var = 'countries'
-#var = reviews['country'].unique()
-#what = 'single_value'
-#hint = None
-#solution = None
-#q2 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
+name_var = 'countries'
+var = reviews['country'].unique()
+what = 'single_value'
+hint = None
+solution = None
+q2 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
 
 #3
 name_var = 'reviews_per_country'

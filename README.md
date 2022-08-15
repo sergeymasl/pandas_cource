@@ -1,5 +1,5 @@
 # pandas_cource
-This cource is a translation of the cource by Kaggle "Pandas" for Russian students.
+This course is a translation and adaptation of the Kaggle "Pandas" course for Russian students.
 You can see original cource [here](https://www.kaggle.com/learn/pandas)
 
 Table of contents:

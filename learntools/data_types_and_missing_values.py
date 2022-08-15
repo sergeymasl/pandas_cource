@@ -26,7 +26,7 @@ var = reviews['price'].isnull().sum()
 what = 'single_value'
 hint = 'Используйте метод `gf`isnull()`n` и `gf`sum()`n`'
 solution = "n_missing_prices = reviews['price'].isnull().sum()"
-q2 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
+q3 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
 
 #4
 name_var = 'reviews_per_region'
@@ -34,4 +34,4 @@ var = reviews['region_1'].fillna('Unknown').value_counts().sort_values(ascending
 what = 'series'
 hint = 'Используйте методы `gf`fillna()`n`, `gf`value_counts()`n` и `gf`sort_values()`n`'
 solution = "reviews_per_region = reviews.region_1.fillna('Unknown').value_counts().sort_values(ascending=False)"
-q2 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
+q4 = Tool(name = name_var, what = what, object = var, hint = hint, solution = solution)
